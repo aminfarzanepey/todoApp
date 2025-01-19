@@ -2,6 +2,7 @@ const themeSwitcherBtn = document.getElementById("theme-switcher");
 const bodyTag = document.querySelector("body");
 const addBtn = document.getElementById("add-btn");
 const todoInput = document.getElementById("addt");
+const ul = document.querySelector(".todos");
 
 function main() {
     //Theme Switcher
@@ -17,6 +18,28 @@ function main() {
 
     //Add Item To Card
     makeTodoElement(JSON.parse(localStorage.getItem("todos")));
+
+    //Drag And Drop
+    ul.addEventListener("dragover",(e) => {
+        e.preventDefault();
+        if(e.target.classList.contains("card") && !e.target.classList.contains("dragging")){
+            const draggingCard = document.querySelector(".dragging");
+            const cards = [...ul.querySelectorAll(".card")];
+            const currentPos = cards.indexOf(draggingCard);
+            const newPos = cards.indexOf(e.target);
+
+            if (currentPos > newPos){
+                ul.insertBefore(draggingCard, e.target);
+            }else{
+                ul.insertBefore(draggingCard, e.target.nextSibling);
+            }
+
+            const todos = JSON.parse(localStorage.getItem("todos"));
+            const removed = todos.splice(currentPos, 1);
+            todos.splice(newPos, 0, removed[0]);
+            localStorage.setItem("todos", JSON.stringify(todos));
+        }
+    });
 
     //Add Todo In Local Storage
     addBtn.addEventListener("click", () => {
@@ -72,7 +95,13 @@ function makeTodoElement(todoArray) {
         pTag.textContent = todoObject.item;
 
         //Add Event Listener
+        card.addEventListener("dragstart" ,()=>{
+            card.classList.add("dragging");
+        });
 
+        card.addEventListener("dragend" ,()=>{
+            card.classList.remove("dragging");
+        });
 
         //Set Element By Parent Child
         clearBtn.appendChild(img);
@@ -83,7 +112,7 @@ function makeTodoElement(todoArray) {
         card.appendChild(pTag);
         card.appendChild(clearBtn);
 
-        document.querySelector(".todos").appendChild(card);
+        ul.appendChild(card);
     });
 }
 
