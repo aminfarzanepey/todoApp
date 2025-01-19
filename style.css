@@ -6,6 +6,7 @@
     /* --img-bg: url("../images/bg-desktop-dark.jpg"); */
     --clr-primary: hsl(0, 0%, 98%);
     --clr-white: hsl(0, 0%, 100%);
+    --clr-title: hsl(0, 0%, 100%);
     --clr-page-bg: hsl(235, 21%, 11%);
     --clr-card-bg: hsl(235, 24%, 19%);
     --clr-blue: hsl(220, 98%, 61%);
@@ -24,8 +25,9 @@
 
   body.light {
     /* --img-bg: url("../assets/images/bg-desktop-light.jpg"); */
+    --clr-title: hsl(235, 21%, 11%);
     --clr-primary: hsl(243, 12%, 30%);
-    --clr-page-bg: hsl(0, 0%, 98%);
+    --clr-page-bg: hsl(0, 0%, 95%);
     --clr-card-bg: hsl(0, 0%, 100%);
     --clr-gb-1: hsl(240, 8%, 24%);
     --clr-gb-2: hsl(243, 12%, 30%);
@@ -117,7 +119,7 @@
   }
 
   header.card h1 {
-    color: var(--clr-white);
+    color: var(--clr-title);
 
     font-weight: 700;
     font-size: calc(var(--base-font) * 2);
