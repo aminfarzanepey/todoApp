@@ -4,6 +4,7 @@ const addBtn = document.getElementById("add-btn");
 const todoInput = document.getElementById("addt");
 const ul = document.querySelector(".todos");
 const filter = document.querySelector(".filter");
+const btnFilter = document.getElementById("clear-completed");
 
 function main() {
     //Theme Switcher
@@ -86,6 +87,15 @@ function removeTodo(index) {
     localStorage.setItem("todos", JSON.stringify(todos));
 }
 
+function removeMultipleTodos(indexes) {
+    var todos = JSON.parse(localStorage.getItem("todos"));
+    todos = todos.filter((todo, index) => {
+     return !indexes.includes(index);
+    });
+
+    localStorage.setItem("todos", JSON.stringify(todos));
+}
+
 function stateTodo(index, isComplete) {
     const todos = JSON.parse(localStorage.getItem("todos"));
     todos[index].isCompleted = isComplete;
@@ -160,6 +170,18 @@ function makeTodoElement(todoArray) {
                 currentCard.remove();
                 itemsLeft.textContent = document.querySelectorAll(".todos .card:not(.checked)").length;
             });
+        });
+
+        btnFilter.addEventListener("click", () => {
+            const deleteIndexes = [];
+            document.querySelectorAll(".card.checked").forEach((card) => {
+                deleteIndexes.push([...document.querySelectorAll(".todos .card")].indexOf(card));
+                card.classList.add("fall");
+                card.addEventListener("animationend", () =>{
+                    card.remove();
+                });
+            });
+            removeMultipleTodos(deleteIndexes);
         });
 
         //Set Element By Parent Child
