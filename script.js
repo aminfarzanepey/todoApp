@@ -87,6 +87,8 @@ function makeTodoElement(todoArray) {
         return null;
     }
 
+    const itemsLeft = document.querySelector("#items-left");
+
     todoArray.forEach(todoObject => {
         // Creat HTML Elements Of Todo
         const card = document.createElement("li");
@@ -134,6 +136,8 @@ function makeTodoElement(todoArray) {
             stateTodo(currentCardIndex, checked);
 
             checked ? currentCard.classList.add("checked") : currentCard.classList.remove("checked");
+
+            itemsLeft.textContent = document.querySelectorAll(".todos .card:not(.checked)").length;
         });
 
         clearBtn.addEventListener("click",(e)=>{
@@ -142,7 +146,8 @@ function makeTodoElement(todoArray) {
             const indexOfCurrentCard = [...document.querySelectorAll(".todos .card")].indexOf(currentCard);
             removeTodo(indexOfCurrentCard);
             currentCard.addEventListener("animationend", ()=>{
-                //Todo Set New Value Left
+                currentCard.remove();
+                itemsLeft.textContent = document.querySelectorAll(".todos .card:not(.checked)").length;
             });
         });
 
@@ -157,6 +162,8 @@ function makeTodoElement(todoArray) {
 
         ul.appendChild(card);
     });
+
+    itemsLeft.textContent = document.querySelectorAll(".todos .card:not(.checked)").length;
 }
 
 document.addEventListener("DOMContentLoaded", main);

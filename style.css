@@ -156,8 +156,8 @@
   /* CHECKED CARD */
 
   .card .cb-container .cb-input:checked + .check {
-    background: url("../images/icon-check.svg"),
-      linear-gradient(45deg, var(--clr-green), var(--clr-pink));
+    background: url("../images/icon-check.svg"),#2ecc71;
+      /* linear-gradient(45deg, var(--clr-green), var(--clr-pink)); */
     background-repeat: no-repeat;
     background-position: center;
   }
