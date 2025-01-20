@@ -3,6 +3,7 @@ const bodyTag = document.querySelector("body");
 const addBtn = document.getElementById("add-btn");
 const todoInput = document.getElementById("addt");
 const ul = document.querySelector(".todos");
+const filter = document.querySelector(".filter");
 
 function main() {
     //Theme Switcher
@@ -67,6 +68,16 @@ function main() {
             addBtn.click();
         }
     });
+
+    filter.addEventListener("click", (e) => {
+        const id = e.target.id;
+
+        if(id){
+            document.querySelector(".on").classList.remove("on");
+            document.getElementById(id).classList.add("on");
+            ul.className = `todos ${id}`;
+        }
+    })
 }
 
 function removeTodo(index) {
