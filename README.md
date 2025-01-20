@@ -4,7 +4,7 @@ html, css, java script todo app
 
 ## Screen Shots
 
-<img src="https://github.com/aminfarzanepey/todoApp.git/blob/main/screenShot/screenShot.jpg?raw=true" width="600">
+<img src="https://github.com/aminfarzanepey/todoApp/blob/main/screenShot/screenShot.jpg?raw=true" width="600">
 
 ## Installation
 
