@@ -57,9 +57,15 @@ function main() {
 
             todos.push(currentTodo);
             localStorage.setItem("todos",JSON.stringify(todos));
-
+            makeTodoElement([currentTodo]);
         }
 
+    });
+
+    todoInput.addEventListener("keydown",(e) => {
+        if(e.key == "Enter"){
+            addBtn.click();
+        }
     });
 }
 
