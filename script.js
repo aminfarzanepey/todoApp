@@ -69,6 +69,18 @@ function main() {
     });
 }
 
+function removeTodo(index) {
+    const todos = JSON.parse(localStorage.getItem("todos"));
+    todos.splice(index,1);
+    localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function stateTodo(index, isComplete) {
+    const todos = JSON.parse(localStorage.getItem("todos"));
+    todos[index].isCompleted = isComplete;
+    localStorage.setItem("todos", JSON.stringify(todos));
+}
+
 function makeTodoElement(todoArray) {
 
     if(!todoArray){
@@ -100,6 +112,11 @@ function makeTodoElement(todoArray) {
         img.setAttribute("alt", "clear it")
         pTag.textContent = todoObject.item;
 
+        if(todoObject.isCompleted){
+            card.classList.add("checked");
+            cbInput.setAttribute("checked","checked");
+        }
+
         //Add Event Listener
         card.addEventListener("dragstart" ,()=>{
             card.classList.add("dragging");
@@ -107,6 +124,26 @@ function makeTodoElement(todoArray) {
 
         card.addEventListener("dragend" ,()=>{
             card.classList.remove("dragging");
+        });
+
+        cbInput.addEventListener("click", (e)=> {
+            const currentCard = cbInput.parentElement.parentElement;
+            const checked = cbInput.checked;
+            const currentCardIndex = [...document.querySelectorAll(".todos .card")].indexOf(currentCard);
+
+            stateTodo(currentCardIndex, checked);
+
+            checked ? currentCard.classList.add("checked") : currentCard.classList.remove("checked");
+        });
+
+        clearBtn.addEventListener("click",(e)=>{
+            const currentCard = clearBtn.parentElement;
+            currentCard.classList.add("fall");
+            const indexOfCurrentCard = [...document.querySelectorAll(".todos .card")].indexOf(currentCard);
+            removeTodo(indexOfCurrentCard);
+            currentCard.addEventListener("animationend", ()=>{
+                //Todo Set New Value Left
+            });
         });
 
         //Set Element By Parent Child
